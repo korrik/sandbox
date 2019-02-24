@@ -1,0 +1,18 @@
+@import "snippets/_colors.scss";
+
+html,
+body {
+
+  height: 100%;
+}
+
+body {
+  background: $color-white;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+h1 {
+  color: $color-red;
+  font-weight: 600;
+}

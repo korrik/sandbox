@@ -17,7 +17,7 @@ var paths = {
   scripts: {
     ts: 'assets/dev/ts/**/*.ts',
 
-    src: 'assets/dev/js/**/*.js',
+    src: 'assets/dev/js/app/*.js',
     dest: 'assets/src/js'
   }
 };
@@ -45,7 +45,7 @@ function js_plugins() {
     'node_modules/bootstrap/dist/js/bootstrap.min.js',
   ])
   .pipe(concat("all.js"))
-  .pipe(gulp.dest('assets/dev/js/plugins'));
+  .pipe(gulp.dest('assets/src/js/plugins'));
 }
 
 
@@ -61,13 +61,10 @@ function styles () {
       .pipe(browserSync.stream());
 }
 
-function concat_() {
-  return gulp.src(paths.scripts.dest + "/app")
-    .pipe(concat("main.js"))
-}
 
 function scripts() {
   return gulp.src(paths.scripts.src, { sourcemaps: true })
+    .pipe(concat("main.js"))
     .pipe(gulp.dest(paths.scripts.dest))
 
     .pipe(browserSync.stream());
@@ -94,7 +91,7 @@ function sync() {
 
 
 
-var build = gulp.series(clean, ts_, styles, scripts, gulp.parallel(watch, sync));
+var build = gulp.series(clean, js_plugins, ts_, styles, scripts, gulp.parallel(watch, sync));
 
 
 exports.clean = clean;

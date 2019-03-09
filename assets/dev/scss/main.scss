@@ -1,18 +1,32 @@
 @import "snippets/_colors.scss";
 
-html,
-body {
-
-  height: 100%;
-}
 
 body {
-  background: $color-white;
-  display: -ms-flexbox;
-  display: flex;
+  background: $color-grey;
 }
 
 h1 {
   color: $color-red;
   font-weight: 600;
+}
+
+.navbar {
+  background: $color-blue;
+  box-shadow: 0px 1px 7px #999;
+
+  a {
+    color: $color-white;
+  }
+}
+
+
+.card {
+  border: 1px solid rgba(242, 242, 242, 0.58);
+  background: $color-white;
+  box-shadow: 0 0.75rem 1.5rem rgba(236, 242, 247, 0.56);
+  border-radius: 3px;
+
+  .card-body {
+
+  }
 }

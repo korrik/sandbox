@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var del = require('del');
-var browserSync = require('browser-sync').create();
 var rename = require('gulp-rename');
 var cleanCSS = require('gulp-clean-css');
 var concat = require('gulp-concat');
@@ -11,14 +10,14 @@ var ts = require('gulp-typescript')
 var paths = {
   styles: {
     src: 'assets/dev/scss/**/*.scss',
-    dest: 'assets/src/css/'
+    dest: 'handbook/static/assets/css/'
   },
 
   scripts: {
     ts: 'assets/dev/ts/**/*.ts',
 
     src: 'assets/dev/js/app/*.js',
-    dest: 'assets/src/js'
+    dest: 'handbook/static/assets/js'
   }
 };
 
@@ -45,7 +44,7 @@ function js_plugins() {
     'node_modules/bootstrap/dist/js/bootstrap.min.js',
   ])
   .pipe(concat("all.js"))
-  .pipe(gulp.dest('assets/src/js/plugins'));
+  .pipe(gulp.dest('handbook/static/assets/js/plugins'));
 }
 
 
@@ -58,7 +57,6 @@ function styles () {
       }))
       .pipe(gulp.dest(paths.styles.dest))
 
-      .pipe(browserSync.stream());
 }
 
 
@@ -67,7 +65,6 @@ function scripts() {
     .pipe(concat("main.js"))
     .pipe(gulp.dest(paths.scripts.dest))
 
-    .pipe(browserSync.stream());
 }
 
 
@@ -77,22 +74,10 @@ function watch() {
   gulp.watch(paths.scripts.src, scripts);
   gulp.watch(paths.styles.src, styles);
 
-  gulp.watch('./*.html').on('change', browserSync.reload);
 }
 
 
-function sync() {
-  browserSync.init({
-        server: {
-            baseDir: "./"
-        }
-  });
-}
-
-
-
-var build = gulp.series(clean, js_plugins, ts_, styles, scripts, gulp.parallel(watch, sync));
-
+var build = gulp.series(clean, js_plugins, ts_, styles, scripts, gulp.parallel(watch));
 
 exports.clean = clean;
 exports.js_plugins = js_plugins;
